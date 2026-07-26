@@ -1,24 +1,23 @@
 body {
-  margin: 0;
-  padding: 0;
-  background: #0d0d0d;
+  background: #111;
   color: white;
   font-family: Arial, sans-serif;
   text-align: center;
+  margin: 0;
+  padding: 40px;
 }
 
 h1 {
   color: gold;
-  margin-top: 40px;
   font-size: 36px;
 }
 
 h2 {
-  color: #cccccc;
+  color: #00ffcc;
 }
 
 p {
-  color: #aaaaaa;
+  font-size: 18px;
 }
 
 button {
