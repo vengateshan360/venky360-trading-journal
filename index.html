@@ -1,22 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VENKY-360-TRADER</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VENKY-360-TRADER</title>
 
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#111;
+    color:white;
+    text-align:center;
+}
+.container{
+    margin-top:60px;
+}
+h1{
+    color:gold;
+    font-size:42px;
+}
+h2{
+    color:#00ffff;
+}
+p{
+    font-size:20px;
+}
+button{
+    background:gold;
+    color:black;
+    border:none;
+    padding:15px 30px;
+    margin:10px;
+    font-size:18px;
+    border-radius:10px;
+    cursor:pointer;
+}
+button:hover{
+    background:orange;
+}
+</style>
+
+</head>
 <body>
 
-    <h1>📈 VENKY-360-TRADER</h1>
+<div class="container">
 
-    <h2>Personal Trading Journal</h2>
+<h1>📈 VENKY-360-TRADER</h1>
 
-    <p>Welcome to your personal trading journal.</p>
+<h2>Personal Trading Journal</h2>
 
-    <button>New Trade</button>
-    <button>View Journal</button>
+<p>Welcome to your personal trading journal.</p>
 
-</body>
-</html>
+<button onclick="newTrade()">New Trade</button>
+
+<button onclick="viewJournal()">View Journal</button>
+
+</div>
+
+<script>
+
+function newTrade(){
