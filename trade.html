@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Trade</title>
+
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+}
+.container{
+    width:90%;
+    max-width:500px;
+    margin:auto;
+    margin-top:30px;
+}
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border-radius:8px;
+}
+button{
+    width:100%;
+    padding:15px;
+    background:gold;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📈 New Trade</h1>
+
+<input type="text" placeholder="Pair (XAUUSD)">
+<select>
+<option>Buy</option>
+<option>Sell</option>
+</select>
+
+<input type="number" placeholder="Entry Price">
+<input type="number" placeholder="Stop Loss">
+<input type="number" placeholder="Take Profit">
+<input type="number" placeholder="Lot Size">
+
+<textarea placeholder="Trade Notes"></textarea>
+
+<button>Save Trade</button>
+
+</div>
+
+</body>
+</html>
