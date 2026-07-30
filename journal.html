@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trading Journal</title>
+
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial,sans-serif;
+    margin:20px;
+}
+
+h1{
+    color:gold;
+    text-align:center;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th,td{
+    border:1px solid #555;
+    padding:10px;
+    text-align:center;
+}
+
+th{
+    background:gold;
+    color:black;
+}
+
+tr:nth-child(even){
+    background:#222;
+}
+
+button{
+    background:gold;
+    color:black;
+    border:none;
+    padding:10px 20px;
+    margin:10px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:orange;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>📊 Trading Journal</h1>
+
+<div style="text-align:center;">
+<button onclick="window.location.href='index.html'">🏠 Home</button>
+<button onclick="clearTrades()">🗑 Clear All</button>
+</div>
+
+<table id="journalTable">
+<thead>
+<tr>
+<th>Date</th>
+<th>Pair</th>
+<th>Direction</th>
+<th>Entry</th>
+<th>SL</th>
+<th>TP</th>
+<th>Lot</th>
+<th>Notes</th>
+<th>Delete</th>
+</tr>
+</thead>
+
+<tbody id="tableBody">
+</tbody>
+
+</table>
+
+<script>
+
+let trades = JSON.parse(localStorage.getItem("trades")) || [];
+
+const tableBody = document.getElementById("tableBody");
+
+function loadTrades(){
+
+tableBody.innerHTML="";
+
+if(trades.length===0){
+
+tableBody.innerHTML=
+"<tr><td colspan='9'>No Trades Found</td></tr>";
+
+return;
+}
+
+trades.forEach((trade,index)=>{
+
+tableBody.innerHTML+=`
+
+<tr>
+
+<td>${trade.date}</td>
+
+<td>${trade.pair}</td>
+
+<td>${trade.direction}</td>
+
+<td>${trade.entry}</td>
+
+<td>${trade.sl}</td>
+
+<td>${trade.tp}</td>
+
+<td>${trade.lot}</td>
+
+<td>${trade.notes}</td>
+
+<td>
+<button onclick="deleteTrade(${index})">
+Delete
+</button>
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+function deleteTrade(index){
+
+trades.splice(index,1);
+
+localStorage.setItem("trades",JSON.stringify(trades));
+
+loadTrades();
+
+}
+
+function clearTrades(){
+
+if(confirm("Delete all trades?")){
+
+localStorage.removeItem("trades");
+
+trades=[];
+
+loadTrades();
+
+}
+
+}
+
+loadTrades();
+
+</script>
+
+</body>
+</html>
