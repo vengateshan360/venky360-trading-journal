@@ -7,41 +7,52 @@
 
 <style>
 body{
-    background:#111;
-    color:white;
-    font-family:Arial,sans-serif;
-    padding:20px;
+background:#111;
+color:white;
+font-family:Arial,sans-serif;
+padding:20px;
 }
+
 h1{
-    color:gold;
-    text-align:center;
+color:gold;
+text-align:center;
 }
+
 form{
-    max-width:500px;
-    margin:auto;
+max-width:500px;
+margin:auto;
 }
+
 label{
-    display:block;
-    margin-top:15px;
+display:block;
+margin-top:15px;
 }
+
 input,select,textarea{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    border-radius:8px;
-    border:none;
+width:100%;
+padding:10px;
+margin-top:5px;
+border-radius:8px;
+border:none;
 }
+
 button{
-    width:100%;
-    padding:15px;
-    margin-top:20px;
-    background:gold;
-    color:black;
-    border:none;
-    border-radius:10px;
-    font-size:18px;
+width:100%;
+padding:15px;
+margin-top:20px;
+background:gold;
+color:black;
+border:none;
+border-radius:10px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:orange;
 }
 </style>
+
 </head>
 
 <body>
@@ -51,37 +62,66 @@ button{
 <form>
 
 <label>Date</label>
-<input type="date">
+<input type="date" id="date">
 
 <label>Pair</label>
-<input type="text" placeholder="XAUUSD">
+<input type="text" id="pair" placeholder="XAUUSD">
 
 <label>Direction</label>
-<select>
+<select id="direction">
 <option>BUY</option>
 <option>SELL</option>
 </select>
 
 <label>Entry Price</label>
-<input type="number">
+<input type="number" id="entry">
 
 <label>Stop Loss</label>
-<input type="number">
+<input type="number" id="sl">
 
 <label>Take Profit</label>
-<input type="number">
+<input type="number" id="tp">
 
 <label>Lot Size</label>
-<input type="number" step="0.01">
+<input type="number" step="0.01" id="lot">
 
 <label>Notes</label>
-<textarea rows="4"></textarea>
+<textarea id="notes" rows="5"></textarea>
 
-<button type="button" onclick="alert('Trade Saved Successfully!')">
+<button type="button" onclick="saveTrade()">
 Save Trade
 </button>
 
 </form>
+
+<script>
+
+function saveTrade(){
+
+const trade={
+date:document.getElementById("date").value,
+pair:document.getElementById("pair").value,
+direction:document.getElementById("direction").value,
+entry:document.getElementById("entry").value,
+sl:document.getElementById("sl").value,
+tp:document.getElementById("tp").value,
+lot:document.getElementById("lot").value,
+notes:document.getElementById("notes").value
+};
+
+let trades=JSON.parse(localStorage.getItem("trades"))||[];
+
+trades.push(trade);
+
+localStorage.setItem("trades",JSON.stringify(trades));
+
+alert("Trade Saved Successfully!");
+
+window.location.href="index.html";
+
+}
+
+</script>
 
 </body>
 </html>
