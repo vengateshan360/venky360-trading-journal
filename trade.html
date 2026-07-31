@@ -59,8 +59,9 @@ background:orange;
 
 <h1>📈 New Trade Entry</h1>
 
-<form>
-
+<form> 
+<label>Chart Screenshot</label>
+<input type="file" id="screenshot" accept="image/*">
 <label>Date</label>
 <input type="date" id="date">
 
@@ -98,26 +99,58 @@ Save Trade
 
 function saveTrade(){
 
-const trade={
-date:document.getElementById("date").value,
-pair:document.getElementById("pair").value,
-direction:document.getElementById("direction").value,
-entry:document.getElementById("entry").value,
-sl:document.getElementById("sl").value,
-tp:document.getElementById("tp").value,
-lot:document.getElementById("lot").value,
-notes:document.getElementById("notes").value
-};
 
-let trades=JSON.parse(localStorage.getItem("trades"))||[];
+const file = document.getElementById("screenshot").files[0];
 
-trades.push(trade);
+if(file){
+    const reader = new FileReader();
 
-localStorage.setItem("trades",JSON.stringify(trades));
+    reader.onload = function(e){
 
-alert("Trade Saved Successfully!");
+        const trade = {
+            date: document.getElementById("date").value,
+            pair: document.getElementById("pair").value,
+            direction: document.getElementById("direction").value,
+            entry: document.getElementById("entry").value,
+            sl: document.getElementById("sl").value,
+            tp: document.getElementById("tp").value,
+            lot: document.getElementById("lot").value,
+            notes: document.getElementById("notes").value,
+            screenshot: e.target.result
+        };
 
-window.location.href="index.html";
+        let trades = JSON.parse(localStorage.getItem("trades")) || [];
+        trades.push(trade);
+        localStorage.setItem("trades", JSON.stringify(trades));
+
+        alert("Trade Saved Successfully!");
+        window.location.href = "journal.html";
+    };
+
+    reader.readAsDataURL(file);
+
+}else{
+
+    const trade = {
+        date: document.getElementById("date").value,
+        pair: document.getElementById("pair").value,
+        direction: document.getElementById("direction").value,
+        entry: document.getElementById("entry").value,
+        sl: document.getElementById("sl").value,
+        tp: document.getElementById("tp").value,
+        lot: document.getElementById("lot").value,
+        notes: document.getElementById("notes").value,
+        screenshot: ""
+    };
+
+    let trades = JSON.parse(localStorage.getItem("trades")) || [];
+    trades.push(trade);
+    localStorage.setItem("trades", JSON.stringify(trades));
+
+    alert("Trade Saved Successfully!");
+    window.location.href = "journal.html";
+}
+
 
 }
 
