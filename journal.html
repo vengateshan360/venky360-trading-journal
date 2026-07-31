@@ -76,6 +76,7 @@ button:hover{
 <th>SL</th>
 <th>TP</th>
 <th>Lot</th>
+<th>Screenshot</th>
 <th>Notes</th>
 <th>Delete</th>
 </tr>
@@ -99,7 +100,7 @@ tableBody.innerHTML="";
 if(trades.length===0){
 
 tableBody.innerHTML=
-"<tr><td colspan='9'>No Trades Found</td></tr>";
+"<tr><td colspan='10'>No Trades Found</td></tr>";
 
 return;
 }
@@ -121,11 +122,9 @@ tableBody.innerHTML+=`
 <td>${trade.sl}</td>
 
 <td>${trade.tp}</td>
-
 <td>${trade.lot}</td>
-
+<td><img src="${trade.screenshot}" width="100"></td>
 <td>${trade.notes}</td>
-
 <td>
 <button onclick="deleteTrade(${index})">
 Delete
