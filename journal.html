@@ -41,11 +41,37 @@ tr:nth-child(even){
 
 button{
     background:gold;
-    color:black;
+    button:hover{
+    background:orange;
+}
+
+#imageViewer{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.95);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+#imageViewer img{
+    max-width:95%;
+    max-height:95%;
+    border:3px solid white;
+    border-radius:10px;
+}
     border:none;
     padding:10px 20px;
     margin:10px;
-    border-radius:8px;
+    <div id="imageViewer" onclick="closeImage()">
+    <img id="fullImage">
+</div>
+
+<table id="journalTable">
     cursor:pointer;
     font-weight:bold;
 }
@@ -71,7 +97,6 @@ border:3px solid white;
 border-radius:10px;
 }    background:orange;
 }
-</style>
 
 </head>
 
@@ -97,7 +122,7 @@ border-radius:10px;
 <th>TP</th>
 <th>Lot</th>
 <th>Screenshot</th>
-<th>Notes</th>
+onclick="showImage('${trade.screenshot}')"
 <th>Delete</th>
 </tr>
 </thead>
@@ -127,7 +152,28 @@ return;
 ${trade.screenshot ? `
 <img src="${trade.screenshot}"
 width="100"
-style="cursor:pointer"
+function deleteTrade(index){
+
+let trades = JSON.parse(localStorage.getItem("trades")) || [];
+
+trades.splice(index,1);
+
+localStorage.setItem("trades", JSON.stringify(trades));
+
+loadTrades();
+
+location.reload();
+
+}
+
+function showImage(src){
+document.getElementById("imageViewer").style.display="flex";
+document.getElementById("fullImage").src=src;
+}
+
+function closeImage(){
+document.getElementById("imageViewer").style.display="none";
+}
 onclick="showImage('${trade.screenshot}')">
 ` : "No Image"}
 </td>
