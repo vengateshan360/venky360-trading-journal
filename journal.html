@@ -124,7 +124,11 @@ tableBody.innerHTML+=`
 <td>${trade.tp}</td>
 <td>${trade.lot}</td>
 <td>
-${trade.screenshot ? `<img src="${trade.screenshot}" width="100">` : "No Image"}
+${trade.screenshot ? `
+<a href="${trade.screenshot}" target="_blank">
+<img src="${trade.screenshot}" width="100" style="cursor:pointer;">
+</a>
+` : "No Image"}
 </td>
 <td>${trade.notes}</td>
 <td>
