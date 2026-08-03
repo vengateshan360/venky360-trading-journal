@@ -41,7 +41,16 @@ tr:nth-child(even){
 
 button{
     background:gold;
-    button:hover{
+    color:black;
+    border:none;
+    padding:10px 20px;
+    margin:10px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
     background:orange;
 }
 
@@ -64,39 +73,7 @@ button{
     border:3px solid white;
     border-radius:10px;
 }
-    border:none;
-    padding:10px 20px;
-    margin:10px;
-    <div id="imageViewer" onclick="closeImage()">
-    <img id="fullImage">
-</div>
-
-<table id="journalTable">
-    cursor:pointer;
-    font-weight:bold;
-}
-
-button:hover{
-#imageViewer{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.95);
-justify-content:center;
-align-items:center;
-z-index:9999;
-}
-
-#imageViewer img{
-max-width:95%;
-max-height:95%;
-border:3px solid white;
-border-radius:10px;
-}    background:orange;
-}
+</style>
 
 </head>
 
@@ -110,10 +87,10 @@ border-radius:10px;
 </div>
 
 <table id="journalTable">
+
 <thead>
-<tr><div id="imageViewer" onclick="closeImage()">
-<img id="fullImage">
-</div>
+
+<tr>
 <th>Date</th>
 <th>Pair</th>
 <th>Direction</th>
@@ -122,15 +99,20 @@ border-radius:10px;
 <th>TP</th>
 <th>Lot</th>
 <th>Screenshot</th>
-onclick="showImage('${trade.screenshot}')"
+<th>Notes</th>
 <th>Delete</th>
 </tr>
+
 </thead>
 
 <tbody id="tableBody">
 </tbody>
 
 </table>
+
+<div id="imageViewer" onclick="closeImage()">
+<img id="fullImage">
+</div>
 
 <script>
 
@@ -139,44 +121,23 @@ let trades = JSON.parse(localStorage.getItem("trades")) || [];
 const tableBody = document.getElementById("tableBody");
 
 function loadTrades(){
+
 trades = JSON.parse(localStorage.getItem("trades")) || [];
+
 tableBody.innerHTML="";
 
 if(trades.length===0){
 
-tableBody.innerHTML=
-"<tr><td colspan='10'>No Trades Found</td></tr>";
+tableBody.innerHTML="<tr><td colspan='10'>No Trades Found</td></tr>";
 
 return;
-<td>
-${trade.screenshot ? `
-<img src="${trade.screenshot}"
-width="100"
-function deleteTrade(index){
-
-let trades = JSON.parse(localStorage.getItem("trades")) || [];
-
-trades.splice(index,1);
-
-localStorage.setItem("trades", JSON.stringify(trades));
-
-loadTrades();
-
-location.reload();
 
 }
 
-function showImage(src){
-document.getElementById("imageViewer").style.display="flex";
-document.getElementById("fullImage").src=src;
-}
+trades.forEach((trade,index)=>{
 
-function closeImage(){
-document.getElementById("imageViewer").style.display="none";
-}
-onclick="showImage('${trade.screenshot}')">
-` : "No Image"}
-</td>
+tableBody.innerHTML+=`
+
 <tr>
 
 <td>${trade.date}</td>
@@ -190,21 +151,28 @@ onclick="showImage('${trade.screenshot}')">
 <td>${trade.sl}</td>
 
 <td>${trade.tp}</td>
+
 <td>${trade.lot}</td>
+
 <td>
-${trade.screenshot ? `
-<img src="${trade.screenshot}" width="100"
-style="cursor:pointer;"
-onclick="window.open('${trade.screenshot}','_self')">
-` : "No Image"}
+
+<img src="${trade.screenshot}"
+width="100"
+style="cursor:pointer"
+onclick="showImage('${trade.screenshot}')">
+
 </td>
-` : "No Image"}
-</td>
+
 <td>${trade.notes}</td>
+
 <td>
+
 <button onclick="deleteTrade(${index})">
+
 Delete
+
 </button>
+
 </td>
 
 </tr>
@@ -212,45 +180,57 @@ Delete
 `;
 
 });
-
 }
+
 function deleteTrade(index){
 
-let trades = JSON.parse(localStorage.getItem("trades")) || [];
-function showImage(src){
-document.getElementById("imageViewer").style.display="flex";
-document.getElementById("fullImage").src=src;
-}
+    let trades = JSON.parse(localStorage.getItem("trades")) || [];
 
-function closeImage(){
-document.getElementById("imageViewer").style.display="none";
-}
-trades.splice(index,1);
+    trades.splice(index,1);
 
-localStorage.setItem("trades", JSON.stringify(trades));
+    localStorage.setItem("trades", JSON.stringify(trades));
 
-loadTrades();
-
-location.reload();
+    loadTrades();
 
 }
 
 function clearTrades(){
 
-if(confirm("Delete all trades?")){
+    if(confirm("Delete all trades?")){
 
-localStorage.removeItem("trades");
+        localStorage.removeItem("trades");
 
-trades=[];
+        trades=[];
 
-loadTrades();
+        loadTrades();
+
+    }
 
 }
+
+function showImage(src){
+
+    if(!src){
+        return;
+    }
+
+    document.getElementById("imageViewer").style.display="flex";
+
+    document.getElementById("fullImage").src=src;
+
+}
+
+function closeImage(){
+
+    document.getElementById("imageViewer").style.display="none";
+
+    document.getElementById("fullImage").src="";
 
 }
 
 loadTrades();
 
 </script>
+
 </body>
 </html>
